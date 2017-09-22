@@ -1,0 +1,32 @@
+{% extends 'admin.html.twig' %}
+
+{% block header %}
+{% endblock %}
+
+{% block body %}
+
+<h3>Rechercher</h3>
+    
+   <form    action="{{ path('admin_search') }}" method="post" > 
+     
+         <div class="form-group">
+
+              <label >date 1:</label>
+              <input type="date" placeholder="date1"   class="form-control" name="date1">
+
+         </div>
+
+         <div class="form-group">
+
+              <label >date 2:</label>
+              <input type="date" placeholder="date2"   class="form-control" name="date2">
+
+         </div>
+
+
+              <input type="submit"  style="border-radius: 15px;font-weight: bold;background:silver;"  class="form-control" value="valider">
+
+  </form>
+
+    
+{% endblock %}

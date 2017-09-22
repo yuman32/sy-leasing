@@ -1,0 +1,42 @@
+<html>
+
+<header>
+ <link href="{{ asset('design/css/bootstrap.min.css') }}" rel="stylesheet">
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+</header>
+
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Admin</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="{{path('admin_categories')}}">Category</a></li>
+      <li><a href="{{path('adminproduct_index')}}">Produit</a></li>
+      <li><a href="{{path('admin_search')}}">Recherche</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<h3 align="center">Administration</h3>
+<div class="container" >
+        <div class="col-md-12" style="min-height:450px;">
+            {% block body %}
+                
+            {% endblock %}
+        </div>
+</div>
+
+
+</body>
+
+
+
+</html>

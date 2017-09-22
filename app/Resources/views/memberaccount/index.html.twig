@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Memberaccounts list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fname</th>
+                <th>Lname</th>
+                <th>Birthday</th>
+                <th>Gender</th>
+                <th>Zip</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Employer</th>
+                <th>Selfemployee</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for memberAccount in memberAccounts %}
+            <tr>
+                <td><a href="{{ path('member_details_show', { 'id': memberAccount.id }) }}">{{ memberAccount.id }}</a></td>
+                <td>{{ memberAccount.fname }}</td>
+                <td>{{ memberAccount.lname }}</td>
+                <td>{% if memberAccount.birthday %}{{ memberAccount.birthday|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ memberAccount.gender }}</td>
+                <td>{{ memberAccount.zip }}</td>
+                <td>{{ memberAccount.phone }}</td>
+                <td>{{ memberAccount.address }}</td>
+                <td>{{ memberAccount.employer }}</td>
+                <td>{% if memberAccount.selfEmployee %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('member_details_show', { 'id': memberAccount.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('member_details_edit', { 'id': memberAccount.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('member_details_new') }}">Create a new memberAccount</a>
+        </li>
+    </ul>
+{% endblock %}

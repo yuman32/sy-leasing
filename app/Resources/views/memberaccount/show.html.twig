@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Memberaccount</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ memberAccount.id }}</td>
+            </tr>
+            <tr>
+                <th>Fname</th>
+                <td>{{ memberAccount.fname }}</td>
+            </tr>
+            <tr>
+                <th>Lname</th>
+                <td>{{ memberAccount.lname }}</td>
+            </tr>
+            <tr>
+                <th>Birthday</th>
+                <td>{% if memberAccount.birthday %}{{ memberAccount.birthday|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>{{ memberAccount.gender }}</td>
+            </tr>
+            <tr>
+                <th>Zip</th>
+                <td>{{ memberAccount.zip }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ memberAccount.phone }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ memberAccount.address }}</td>
+            </tr>
+            <tr>
+                <th>Employer</th>
+                <td>{{ memberAccount.employer }}</td>
+            </tr>
+            <tr>
+                <th>Selfemployee</th>
+                <td>{% if memberAccount.selfEmployee %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('member_details_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('member_details_edit', { 'id': memberAccount.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

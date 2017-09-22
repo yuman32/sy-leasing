@@ -1,0 +1,22 @@
+{% extends 'admin.html.twig' %}
+
+{% block header %}
+{% endblock %}
+
+{% block body %}
+
+<h3>Result</h3>
+  
+ 
+   {% for q in query %} 
+              <div>
+              
+           Purchase N° {{ q.id }} 
+              amount: {{ q.amount}} 
+            
+              </div>	
+                           
+                          
+            {% endfor %}
+    
+{% endblock %}

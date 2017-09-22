@@ -1,0 +1,202 @@
+    {% extends 'base.html.twig' %}
+
+    {% block header %}
+    {% endblock %}
+
+    {% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header"> Purchase
+                <!-- <small>Subheading</small> -->
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            <img style="width:80%;" src="{{ asset('design/uploads/' ~ product.photo) }}">
+        </div>
+        <div class="col-md-4">
+            <h3> Article details </h3>
+            <p style="height:50px;">{{ product.description }} </p>
+            <p > Price : ${{ product.price }} </p>
+
+
+            {{ form_start(form) }}
+                <div  class="form-row col-md-12">
+                <!-- <div class="range-slider"  style="border:solid 1px red;"> -->
+                    <br style="clear:both;" />
+                    <div class="form-group">
+                        <label> Choose your monthly payment</label>
+                        <div class="range-slider" style="margin:0px">
+                            {{ form_widget(form.amount, {'attr': {'class': 'range-slider__range', 'title': purchase.amount } }) }}                             
+                            <span class="range-slider__value" >{{ purchase.amount}} </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label> Loan duration </label>
+                        <div class="range-slider" style="margin:0px">
+                            <input id="duration_spinner" class="range-slider__range" type="range" disabled="disabled">
+                            <span style="border-right: 7px solid #a94298;background: #a94298;" id="duration_value" class="range-slider__value">0</span>
+                        </div>
+                    </div>
+
+                    {# Génération de l'input. #}
+                    {{ form_errors(form.amount) }}
+                <!-- </div> -->
+                    {{ form_widget(form) }}
+
+                    <div class="form-group">
+                      <input class="btn btn-success" type="submit" value="Purchase now" />
+                    </div>
+                </div>
+
+            {{ form_end(form) }}
+            </div>
+        </div>
+
+    <style type="text/css">
+
+        #appbundle_purchase_amount{
+            /*background-color: transparent;*/
+        }
+
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
+
+        body {
+          font-family: sans-serif;
+          padding: 60px 20px;
+        }
+        @media (min-width: 600px) {
+          body {
+            padding: 60px;
+          }
+        }
+
+        .range-slider {
+          margin: 60px 0 0 0%;
+        }
+
+        .range-slider {
+          width: 100%;
+        }
+
+        .range-slider__range {
+          -webkit-appearance: none;
+          width: calc(100% - (73px));
+          height: 10px;
+          border-radius: 5px;
+          background: #d7dcdf;
+          outline: none;
+          padding: 0;
+          margin: 0;
+        }
+        .range-slider__range::-webkit-slider-thumb {
+          -webkit-appearance: none;
+                  appearance: none;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: #2c3e50;
+          cursor: pointer;
+          -webkit-transition: background .15s ease-in-out;
+          transition: background .15s ease-in-out;
+        }
+        .range-slider__range::-webkit-slider-thumb:hover {
+          background: #1abc9c;
+        }
+        .range-slider__range:active::-webkit-slider-thumb {
+          background: #1abc9c;
+        }
+        .range-slider__range::-moz-range-thumb {
+          width: 20px;
+          height: 20px;
+          border: 0;
+          border-radius: 50%;
+          background: #2c3e50;
+          cursor: pointer;
+          -webkit-transition: background .15s ease-in-out;
+          transition: background .15s ease-in-out;
+        }
+        .range-slider__range::-moz-range-thumb:hover {
+          background: #1abc9c;
+        }
+        .range-slider__range:active::-moz-range-thumb {
+          background: #1abc9c;
+        }
+
+        .range-slider__value {
+          display: inline-block;
+          position: relative;
+          width: 60px;
+          color: #fff;
+          line-height: 20px;
+          text-align: center;
+          border-radius: 3px;
+          background: #2c3e50;
+          padding: 5px 10px;
+          margin-left: 8px;
+          font-weight: bold;
+        }
+        #duration_value:after {
+            border-right: 7px solid #a94298;
+        }
+        #duration_spinner::-webkit-slider-thumb{
+            background: #a94298;
+        }
+        .range-slider__value:after {
+          position: absolute;
+          top: 8px;
+          left: -7px;
+          width: 0;
+          height: 0;
+          border-top: 7px solid transparent;
+          border-right: 7px solid #2c3e50;
+          border-bottom: 7px solid transparent;
+          content: '';
+        }
+
+        ::-moz-range-track {
+          background: #d7dcdf;
+          border: 0;
+        }
+
+        input::-moz-focus-inner,
+        input::-moz-focus-outer {
+          border: 0;
+        }
+
+
+    </style>
+
+   
+     {% endblock %}
+
+
+     {% block javascripts %}
+        {{ parent() }}
+        <script type="text/javascript">
+            $('#appbundle_purchase_amount').prop('min', {{ product.minPrice }});
+            $('#appbundle_purchase_amount').prop('max', {{ product.price }});
+            $('#appbundle_purchase_amount').prop('value', {{ purchase.amount }});
+            
+
+            $('#duration_spinner').prop('max', {{ product.price/product.minPrice }});
+
+            var duration = Math.ceil({{ product.price / purchase.amount }});
+            $('#duration_value').html(duration);
+            
+            $('#duration_spinner').prop('value', duration);
+            $('#appbundle_purchase_amount').change(function(){
+                var value = $(this).val();
+                // console.log(value);
+                $('.range-slider__value').html(value);
+                $('#appbundle_purchase_amount').prop('title', value);
+                var duration = Math.ceil( {{ product.price }} / value );
+                // console.log(duration);
+                $('#duration_spinner').prop('value', duration);
+                $('#duration_value').html(duration);
+            });
+        </script>
+     {% endblock %}
